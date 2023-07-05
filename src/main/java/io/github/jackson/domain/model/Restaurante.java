@@ -37,11 +37,11 @@ public class Restaurante {
     private Endereco endereco;
 
     @CreationTimestamp
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "datetime")
     private LocalDateTime dataCadastro;
 
     @UpdateTimestamp
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "datetime")
     private LocalDateTime dataAtualizacao;
 
     @JsonIgnore
