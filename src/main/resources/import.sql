@@ -4,7 +4,7 @@ insert into cozinha (id, nome) values (3, 'Brasileira') ;
 insert into cozinha (id, nome) values (4, 'Chinesa') ;
 insert into cozinha (id, nome) values (5, 'Europeia') ;
 
-insert into restaurante (id,nome, taxa_frete, cozinha_id) values (1, 'Thai', 10.50, 1);
+insert into restaurante (id,nome, taxa_frete, cozinha_id, endereco_cidade_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro ) values (1, 'Thai', 10.50, 1, 1, '72017-221', 'Quadra', '34', 'Taguatinga');
 insert into restaurante (id,nome, taxa_frete, cozinha_id) values (2, 'Namaste', 11.60, 2);
 insert into restaurante (id,nome, taxa_frete, cozinha_id) values (3, 'Beer_House', 0, 3);
 insert into restaurante (id,nome, taxa_frete, cozinha_id) values (4, 'Qin_Tian', 13.80, 4);
