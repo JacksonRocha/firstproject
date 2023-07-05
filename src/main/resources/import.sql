@@ -14,7 +14,7 @@ insert into cidade (id, nome, estado_id) values (3, 'São Paulo', 2 ) ;
 insert into cidade (id, nome, estado_id) values (4, 'Campinas', 2) ;
 insert into cidade (id, nome, estado_id) values (5, 'Fortaleza', 3) ;
 
-insert into restaurante (id,nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, endereco_cidade_id, endereco_cep, endereco_logradouro, endereco_numero, endereco_bairro ) values (1, 'Tailandesa', 10.50, 1, 1, utc_timestamp, utc_timestamp, '72017-221', 'Quadra', '34', 'Taguatinga');
+insert into restaurante (id,nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao, endereco_cidade_id, endereco_cep, endereco_complemento, endereco_logradouro, endereco_numero, endereco_bairro ) values (1, 'Tailandesa', 10.50, 1, utc_timestamp, utc_timestamp, 1, '72017-221', 'Chacará 25', 'Quadra', '34', 'Taguatinga');
 insert into restaurante (id,nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao) values (2, 'Thai Delivery', 9.50, 1, utc_timestamp, utc_timestamp);
 insert into restaurante (id,nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao) values (3, 'Tuk Tuk Comida Indiana', 0, 3, utc_timestamp, utc_timestamp);
 insert into restaurante (id,nome, taxa_frete, cozinha_id, data_cadastro, data_atualizacao) values (4, 'Qin_Tian', 13.80, 4, utc_timestamp, utc_timestamp);
