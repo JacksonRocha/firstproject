@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +34,13 @@ public class Restaurante {
     @JsonIgnore
     @Embedded
     private Endereco endereco;
+
+    @CreationTimestamp
+    @Column(nullable = false)
+    private LocalDateTime dataCadastro;
+
+    @Column(nullable = false)
+    private LocalDateTime dataAtualizacao;
 
     @JsonIgnore
     @ManyToMany
