@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -39,6 +40,7 @@ public class Restaurante {
     @Column(nullable = false)
     private LocalDateTime dataCadastro;
 
+    @UpdateTimestamp
     @Column(nullable = false)
     private LocalDateTime dataAtualizacao;
 
