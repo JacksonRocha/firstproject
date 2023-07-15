@@ -16,6 +16,11 @@ import java.util.Optional;
 @Service
 public class CadastroCidadeService {
 
+    public static final String MSG_CIDADE_NAO_ENCONTRADA
+            = "Não existe cadastro de estado com codigo %d";
+    public static final String MSG_CIDADE_EM_USO
+            = "Cidade de codigo %d não pode ser removida, pois esta em uso";
+
     @Autowired
     private CidadeRepository cidadeRepository;
 
@@ -27,7 +32,7 @@ public class CadastroCidadeService {
 
         Estado estado = estadoRepository.findById(estadoId)
                 .orElseThrow(() -> new EntidadeNaoEncontradaException(
-                    String.format("Não existe cadastro de estado com codigo %d", estadoId)));
+                    String.format(MSG_CIDADE_NAO_ENCONTRADA, estadoId)));
 
         cidade.setEstado(estado);
 
@@ -40,11 +45,17 @@ public class CadastroCidadeService {
 
         }catch (EmptyResultDataAccessException e) {
             throw new EntidadeNaoEncontradaException(
-                    String.format("Não existe cadastro de cidade com codiog %d", cidadeId));
+                    String.format(MSG_CIDADE_NAO_ENCONTRADA, cidadeId));
 
         }catch (DataIntegrityViolationException e) {
             throw new EntidadeEmUsoException(
-                    String.format("Cidade de codigo %d não pode ser removida, pois esta em uso", cidadeId));
+                    String.format(MSG_CIDADE_EM_USO, cidadeId));
         }
+    }
+
+    public Cidade buscarOuFalhar(Long cidadeid) {
+        return cidadeRepository.findById(cidadeid)
+                .orElseThrow(() -> new EntidadeNaoEncontradaException(
+                        String.format(MSG_CIDADE_NAO_ENCONTRADA, cidadeid)));
     }
 }
