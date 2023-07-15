@@ -6,6 +6,7 @@ import io.github.jackson.domain.exception.EntidadeNaoEncontradaException;
 import io.github.jackson.domain.model.Restaurante;
 import io.github.jackson.domain.repository.RestauranteRepository;
 import io.github.jackson.domain.service.CadastroRestauranteService;
+import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -45,7 +46,7 @@ public class RestauranteController {
     }
 
     @PostMapping
-    public ResponseEntity<?> adicionar(@RequestBody Restaurante restaurante) {
+    public ResponseEntity<?> adicionar(@RequestBody @Valid Restaurante restaurante) {
         try {
             restaurante = cadastroRestauranteService.salvar(restaurante);
 
