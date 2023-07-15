@@ -33,8 +33,7 @@ public class CozinhaController {
 
     @GetMapping("/{cozinhaId}")
     public Cozinha buscar(@PathVariable Long cozinhaId) {
-        return cozinhaRepository.findById(cozinhaId)
-                .orElseThrow(() -> new EntidadeNaoEncontradaException("aaa"));
+       return cadastroCozinhaService.buscarOuFalhar(cozinhaId);
     }
 
     @PostMapping
