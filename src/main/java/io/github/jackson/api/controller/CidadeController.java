@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/cidades", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -33,7 +32,7 @@ public class CidadeController {
 
     @GetMapping("/{cidadeId}")
     public Cidade buscar(@PathVariable Long cidadeId) {
-       return cadastroCidadeService.buscarOuFalhar(cidadeId);
+        return cadastroCidadeService.buscarOuFalhar(cidadeId);
     }
 
     @PostMapping
@@ -45,25 +44,16 @@ public class CidadeController {
     @PutMapping("/{cidadeId}")
     public Cidade atualizar(@PathVariable Long cidadeId,
                             @RequestBody Cidade cidade) {
-            Cidade cidadeAtual = cadastroCidadeService.buscarOuFalhar(cidadeId);
+        Cidade cidadeAtual = cadastroCidadeService.buscarOuFalhar(cidadeId);
 
-                BeanUtils.copyProperties(cidade, cidadeAtual, "id");
+        BeanUtils.copyProperties(cidade, cidadeAtual, "id");
 
-                return cadastroCidadeService.salvar(cidadeAtual);
+        return cadastroCidadeService.salvar(cidadeAtual);
     }
 
     @DeleteMapping("/{cidadeId}")
-    public ResponseEntity<?> remover(@PathVariable Long cidadeId) {
-        try {
-            cadastroCidadeService.excluir(cidadeId);
-            return ResponseEntity.noContent().build();
-
-        }catch (EntidadeNaoEncontradaException e) {
-            return ResponseEntity.notFound().build();
-
-        }catch (EntidadeEmUsoException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
-        }
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void remover(@PathVariable Long cidadeId) {
+        cadastroCidadeService.excluir(cidadeId);
     }
-
 }
