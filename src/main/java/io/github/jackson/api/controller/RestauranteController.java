@@ -3,6 +3,7 @@ package io.github.jackson.api.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.jackson.domain.exception.EntidadeEmUsoException;
 import io.github.jackson.domain.exception.EntidadeNaoEncontradaException;
+import io.github.jackson.domain.exception.NegocioException;
 import io.github.jackson.domain.model.Restaurante;
 import io.github.jackson.domain.repository.RestauranteRepository;
 import io.github.jackson.domain.service.CadastroRestauranteService;
@@ -42,7 +43,12 @@ public class RestauranteController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Restaurante adicionar(@RequestBody Restaurante restaurante) {
+        try {
             return cadastroRestauranteService.salvar(restaurante);
+        } catch (EntidadeNaoEncontradaException e) {
+            throw new NegocioException(e.getMessage());
+        }
+
     }
 
     @PutMapping("/{restauranteId}")
@@ -53,7 +59,11 @@ public class RestauranteController {
            BeanUtils.copyProperties(restaurante, restauranteAtual,
                    "id", "formasPagamento", "endereco", "dataCadastro", "produtos");
 
-            return cadastroRestauranteService.salvar(restauranteAtual);
+           try {
+               return cadastroRestauranteService.salvar(restauranteAtual);
+           } catch (EntidadeNaoEncontradaException e) {
+               throw new NegocioException(e.getMessage());
+           }
     }
 
     @DeleteMapping("/{restauranteId}")
