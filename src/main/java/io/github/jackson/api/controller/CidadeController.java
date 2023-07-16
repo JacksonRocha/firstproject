@@ -32,7 +32,7 @@ public class CidadeController {
 
     @GetMapping("/{cidadeId}")
     public Cidade buscar(@PathVariable Long cidadeId) {
-        return cadastroCidadeService.buscarOuFalhar(cidadeId);
+       return cadastroCidadeService.buscarOuFalhar(cidadeId);
     }
 
     @PostMapping
@@ -44,16 +44,16 @@ public class CidadeController {
     @PutMapping("/{cidadeId}")
     public Cidade atualizar(@PathVariable Long cidadeId,
                             @RequestBody Cidade cidade) {
-        Cidade cidadeAtual = cadastroCidadeService.buscarOuFalhar(cidadeId);
+            Cidade cidadeAtual = cadastroCidadeService.buscarOuFalhar(cidadeId);
 
-        BeanUtils.copyProperties(cidade, cidadeAtual, "id");
+                BeanUtils.copyProperties(cidade, cidadeAtual, "id");
 
-        return cadastroCidadeService.salvar(cidadeAtual);
+                return cadastroCidadeService.salvar(cidadeAtual);
     }
 
     @DeleteMapping("/{cidadeId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void remover(@PathVariable Long cidadeId) {
-        cadastroCidadeService.excluir(cidadeId);
-    }
+            cadastroCidadeService.excluir(cidadeId);
+            }
 }
