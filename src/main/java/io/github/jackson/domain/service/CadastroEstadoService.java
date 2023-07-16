@@ -16,6 +16,7 @@ public class CadastroEstadoService {
             = "Não existe um cadastro de estado com codigo %d";
     public static final String MSG_ESTADO_EM_USO
             = "Estado de codigo %d nãp pode ser removida, pois esta em uso";
+
     @Autowired
     private EstadoRepository estadoRepository;
 

@@ -4,7 +4,6 @@ import io.github.jackson.domain.exception.EntidadeEmUsoException;
 import io.github.jackson.domain.exception.EntidadeNaoEncontradaException;
 import io.github.jackson.domain.model.Cozinha;
 import io.github.jackson.domain.model.Restaurante;
-import io.github.jackson.domain.repository.CozinhaRepository;
 import io.github.jackson.domain.repository.RestauranteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -21,9 +20,6 @@ public class CadastroRestauranteService {
 
     @Autowired
     private RestauranteRepository restauranteRepository;
-
-    @Autowired
-    private CozinhaRepository cozinhaRepository;
 
     @Autowired
     private CadastroCozinhaService cadastroCozinhaService;
