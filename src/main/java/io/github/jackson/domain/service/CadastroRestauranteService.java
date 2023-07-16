@@ -11,10 +11,13 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class CadastroRestauranteService {
+
+    public static final String MSG_RESTAURANTE_NAO_ENCONTRADO
+            = "Não existe um cadastro de restaurante com codigo %d";
+    public static final String MSG_RESTAURANTE_EM_USO
+            = "Restauramte de código %d não pode ser removida, pois esta em uso";
 
     @Autowired
     private RestauranteRepository restauranteRepository;
@@ -22,15 +25,17 @@ public class CadastroRestauranteService {
     @Autowired
     private CozinhaRepository cozinhaRepository;
 
+    @Autowired
+    private CadastroCozinhaService cadastroCozinhaService;
+
     public Restaurante salvar(Restaurante restaurante) {
         Long cozinhaId = restaurante.getCozinha().getId();
 
-        Cozinha cozinha = cozinhaRepository.findById(cozinhaId)
-                .orElseThrow(() -> new EntidadeNaoEncontradaException(
-                        String.format("Não existe cadastro de cozinha %d", cozinhaId)));
+        Cozinha cozinha = cadastroCozinhaService.buscarOuFalhar(cozinhaId);
 
         restaurante.setCozinha(cozinha);
-         return restauranteRepository.save(restaurante);
+
+        return restauranteRepository.save(restaurante);
     }
 
     public void excluir(Long restauranteId) {
@@ -38,11 +43,17 @@ public class CadastroRestauranteService {
             restauranteRepository.deleteById(restauranteId);
         }catch (EmptyResultDataAccessException e) {
             throw new EntidadeNaoEncontradaException(
-                    String.format("Não existe um cadastro de restaurante com codigo %d", restauranteId));
+                    String.format(MSG_RESTAURANTE_NAO_ENCONTRADO, restauranteId));
         }catch (DataIntegrityViolationException e) {
             throw new EntidadeEmUsoException(
-                    String.format("Restauramte de código %d não pode ser removida, pois esta em uso", restauranteId));
+                    String.format(MSG_RESTAURANTE_EM_USO, restauranteId));
         }
+    }
+
+    public Restaurante buscarOuFalhar (Long restauranteId) {
+        return restauranteRepository.findById(restauranteId)
+                .orElseThrow(() -> new EntidadeNaoEncontradaException(
+                        String.format(MSG_RESTAURANTE_NAO_ENCONTRADO, restauranteId)));
     }
 }
 
