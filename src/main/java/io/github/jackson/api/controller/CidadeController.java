@@ -66,4 +66,11 @@ public class CidadeController {
     public void remover(@PathVariable Long cidadeId) {
             cadastroCidadeService.excluir(cidadeId);
             }
+            @ExceptionHandler(EntidadeNaoEncontradaException.class)
+            public ResponseEntity<?> tratarEntidadeNaoEncontradaException(
+                    EntidadeNaoEncontradaException e) {
+
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body(e.getMessage());
+            }
 }
