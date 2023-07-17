@@ -2,6 +2,7 @@ package io.github.jackson.domain.service;
 
 import io.github.jackson.domain.exception.EntidadeEmUsoException;
 import io.github.jackson.domain.exception.EntidadeNaoEncontradaException;
+import io.github.jackson.domain.exception.EstadoNaoEncontradaException;
 import io.github.jackson.domain.model.Estado;
 import io.github.jackson.domain.repository.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +30,7 @@ public class CadastroEstadoService {
             estadoRepository.deleteById(estadoId);
 
         }catch (EmptyResultDataAccessException e) {
-           throw new EntidadeNaoEncontradaException
+           throw new EstadoNaoEncontradaException
                    (String.format(MSG_ESTADO_NAO_ENCONTRADO, estadoId));
 
         }catch (DataIntegrityViolationException e) {
@@ -39,7 +40,7 @@ public class CadastroEstadoService {
     }
     public Estado buscarOuFalar (Long estadoId) {
         return estadoRepository.findById(estadoId)
-                .orElseThrow(() -> new EntidadeNaoEncontradaException(
+                .orElseThrow(() -> new EstadoNaoEncontradaException(
                         String.format(MSG_ESTADO_NAO_ENCONTRADO, estadoId)));
     }
 }
