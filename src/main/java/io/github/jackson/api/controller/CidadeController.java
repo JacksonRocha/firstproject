@@ -2,6 +2,7 @@ package io.github.jackson.api.controller;
 
 import io.github.jackson.domain.exception.EntidadeEmUsoException;
 import io.github.jackson.domain.exception.EntidadeNaoEncontradaException;
+import io.github.jackson.domain.exception.EstadoNaoEncontradaException;
 import io.github.jackson.domain.exception.NegocioException;
 import io.github.jackson.domain.model.Cidade;
 import io.github.jackson.domain.repository.CidadeRepository;
@@ -41,7 +42,7 @@ public class CidadeController {
     public Cidade adicionar(@RequestBody Cidade cidade) {
         try {
             return cadastroCidadeService.salvar(cidade);
-        } catch (EntidadeNaoEncontradaException e) {
+        } catch (EstadoNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
         }
 
@@ -56,7 +57,7 @@ public class CidadeController {
 
                 try {
                     return cadastroCidadeService.salvar(cidadeAtual);
-                } catch (EntidadeNaoEncontradaException e ) {
+                } catch (EstadoNaoEncontradaException e ) {
                     throw new NegocioException(e.getMessage());
                 }
     }
