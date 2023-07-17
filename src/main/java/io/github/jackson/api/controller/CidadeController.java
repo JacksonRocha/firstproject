@@ -73,4 +73,12 @@ public class CidadeController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body(e.getMessage());
             }
+
+    @ExceptionHandler(NegocioException.class)
+    public ResponseEntity<?> tratarNegocioException(
+            NegocioException e) {
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .body(e.getMessage());
+    }
 }
