@@ -1,13 +1,14 @@
 package io.github.jackson.api.exceptionhandler;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Getter
-@Setter
-public class Problem {
+@Builder
+public class Problema {
 
     private LocalDateTime dataHora;
     private String mensagem;
