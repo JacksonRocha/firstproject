@@ -36,16 +36,6 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 .body(problema);
     }
 
-    @ExceptionHandler(HttpMediaTypeNotSupportedException.class)
-    public ResponseEntity<?> tratarMediaTypeNotSupportException() {
-        Problema problema =Problema.builder()
-                .dataHora(LocalDateTime.now())
-                .mensagem("O tipo de mídia não é aceito").build();
-
-        return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
-                .body(problema);
-    }
-
     @ExceptionHandler(EntidadeEmUsoException.class)
     public ResponseEntity<?> tratarEntidadeEmUsoException(
             EntidadeEmUsoException e) {
