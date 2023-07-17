@@ -1,7 +1,7 @@
 package io.github.jackson.domain.service;
 
+import io.github.jackson.domain.exception.CidadeNaoEncontradaException;
 import io.github.jackson.domain.exception.EntidadeEmUsoException;
-import io.github.jackson.domain.exception.EntidadeNaoEncontradaException;
 import io.github.jackson.domain.model.Cidade;
 import io.github.jackson.domain.model.Estado;
 import io.github.jackson.domain.repository.CidadeRepository;
@@ -13,8 +13,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class CadastroCidadeService {
 
-    public static final String MSG_CIDADE_NAO_ENCONTRADA
-            = "Não existe cadastro de estado com codigo %d";
     public static final String MSG_CIDADE_EM_USO
             = "Cidade de codigo %d não pode ser removida, pois esta em uso";
 
@@ -39,8 +37,7 @@ public class CadastroCidadeService {
             cidadeRepository.deleteById(cidadeId);
 
         }catch (EmptyResultDataAccessException e) {
-            throw new EntidadeNaoEncontradaException(
-                    String.format(MSG_CIDADE_NAO_ENCONTRADA, cidadeId));
+            throw new CidadeNaoEncontradaException(cidadeId);
 
         }catch (DataIntegrityViolationException e) {
             throw new EntidadeEmUsoException(
@@ -50,7 +47,6 @@ public class CadastroCidadeService {
 
     public Cidade buscarOuFalhar(Long cidadeId) {
         return cidadeRepository.findById(cidadeId)
-                .orElseThrow(() -> new EntidadeNaoEncontradaException(
-                        String.format(MSG_CIDADE_NAO_ENCONTRADA, cidadeId)));
+                .orElseThrow(() -> new CidadeNaoEncontradaException(cidadeId));
     }
 }
