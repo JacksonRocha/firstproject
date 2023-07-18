@@ -24,7 +24,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(EntidadeEmUsoException.class)
-    public ResponseEntity<?> tratarEntidadeEmUsoException(
+    public ResponseEntity<?> handletratarEntidadeEmUsoException(
             EntidadeEmUsoException ex, WebRequest request) {
 
         return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(),
@@ -32,7 +32,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(NegocioException.class)
-    public ResponseEntity<?> tratarNegocioException(
+    public ResponseEntity<?> handletratarNegocioException(
             NegocioException ex, WebRequest request) {
 
         return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(),
