@@ -1,6 +1,6 @@
 package io.github.jackson.domain.exception;
 
-public class RestauranteNaoEncontradaException extends handleEntidadeNaoEncontradaException {
+public class RestauranteNaoEncontradaException extends EntidadeNaoEncontradaException {
     public RestauranteNaoEncontradaException(String mensagem) {
         super(mensagem);
     }
