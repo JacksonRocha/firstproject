@@ -1,7 +1,5 @@
 package io.github.jackson.api.controller;
 
-import io.github.jackson.api.exceptionhandler.Problema;
-import io.github.jackson.domain.exception.EntidadeNaoEncontradaException;
 import io.github.jackson.domain.exception.EstadoNaoEncontradaException;
 import io.github.jackson.domain.exception.NegocioException;
 import io.github.jackson.domain.model.Cidade;
@@ -11,10 +9,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController

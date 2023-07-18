@@ -6,7 +6,7 @@ import lombok.Getter;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 @Builder
-public class Problema {
+public class Problem {
 
     private Integer status;
     private String type;
