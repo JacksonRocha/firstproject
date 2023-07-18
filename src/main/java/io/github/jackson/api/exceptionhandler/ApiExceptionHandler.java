@@ -19,8 +19,18 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<?> handleEntidadeNaoEncontradaException(
             EntidadeNaoEncontradaException ex, WebRequest request) {
 
-        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(),
-                HttpStatus.NOT_FOUND, request);
+        HttpStatus status = HttpStatus.NOT_FOUND;
+        String detail = ex.getMessage();
+
+        Problem problem = Problem.builder()
+                .status(status.value())
+                .type("https://algafood.com.br/entidade-nao-encontrada")
+                .title("Entidade não encontrada")
+                .detail(detail)
+                .build();
+
+        return handleExceptionInternal(ex, problem, new HttpHeaders(),
+                status, request);
     }
 
     @ExceptionHandler(EntidadeEmUsoException.class)
@@ -60,4 +70,5 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         return super.handleExceptionInternal(ex, body, headers, statusCode, request);
     }
+
 }
