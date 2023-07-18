@@ -1,7 +1,6 @@
 package io.github.jackson.domain.service;
 
 import io.github.jackson.domain.exception.EntidadeEmUsoException;
-import io.github.jackson.domain.exception.EntidadeNaoEncontradaException;
 import io.github.jackson.domain.exception.EstadoNaoEncontradaException;
 import io.github.jackson.domain.model.Estado;
 import io.github.jackson.domain.repository.EstadoRepository;

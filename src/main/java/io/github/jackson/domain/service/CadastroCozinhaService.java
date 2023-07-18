@@ -2,7 +2,6 @@ package io.github.jackson.domain.service;
 
 import io.github.jackson.domain.exception.CozinhaNaoEncontradaException;
 import io.github.jackson.domain.exception.EntidadeEmUsoException;
-import io.github.jackson.domain.exception.EntidadeNaoEncontradaException;
 import io.github.jackson.domain.model.Cozinha;
 import io.github.jackson.domain.repository.CozinhaRepository;
 import org.springframework.beans.factory.annotation.Autowired;

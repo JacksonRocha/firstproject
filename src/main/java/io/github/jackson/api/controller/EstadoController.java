@@ -1,18 +1,14 @@
 package io.github.jackson.api.controller;
 
-import io.github.jackson.domain.exception.EntidadeEmUsoException;
-import io.github.jackson.domain.exception.EntidadeNaoEncontradaException;
 import io.github.jackson.domain.model.Estado;
 import io.github.jackson.domain.repository.EstadoRepository;
 import io.github.jackson.domain.service.CadastroEstadoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/estados")

@@ -1,6 +1,6 @@
 package io.github.jackson.domain.exception;
 
-public class CidadeNaoEncontradaException extends EntidadeNaoEncontradaException {
+public class CidadeNaoEncontradaException extends handleNaoEncontradaException {
     public CidadeNaoEncontradaException(String mensagem) {
         super(mensagem);
     }
