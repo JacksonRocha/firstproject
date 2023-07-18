@@ -1,10 +1,7 @@
 package io.github.jackson.api.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.github.jackson.domain.exception.CozinhaNaoEncontradaException;
-import io.github.jackson.domain.exception.EntidadeEmUsoException;
-import io.github.jackson.domain.exception.EntidadeNaoEncontradaException;
-import io.github.jackson.domain.exception.NegocioException;
+import io.github.jackson.domain.exception.*;
 import io.github.jackson.domain.model.Restaurante;
 import io.github.jackson.domain.repository.RestauranteRepository;
 import io.github.jackson.domain.service.CadastroRestauranteService;
@@ -46,7 +43,7 @@ public class RestauranteController {
     public Restaurante adicionar(@RequestBody Restaurante restaurante) {
         try {
             return cadastroRestauranteService.salvar(restaurante);
-        } catch (CozinhaNaoEncontradaException e) {
+        } catch (RestauranteNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
         }
 
