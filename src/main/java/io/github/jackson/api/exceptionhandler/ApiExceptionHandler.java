@@ -3,11 +3,14 @@ package io.github.jackson.api.exceptionhandler;
 import io.github.jackson.domain.exception.EntidadeEmUsoException;
 import io.github.jackson.domain.exception.EntidadeNaoEncontradaException;
 import io.github.jackson.domain.exception.NegocioException;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.time.LocalDateTime;
@@ -45,5 +48,18 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(problema);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleExceptionInternal(
+            Exception ex, Object body, HttpHeaders headers,
+            HttpStatusCode statusCode, WebRequest request) {
+
+        body = Problema.builder()
+               .dataHora(LocalDateTime.now())
+               .mensagem(ex.getMessage())
+               .build();
+
+        return super.handleExceptionInternal(ex, body, headers, statusCode, request);
     }
 }
