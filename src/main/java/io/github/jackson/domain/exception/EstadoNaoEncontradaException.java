@@ -1,6 +1,6 @@
 package io.github.jackson.domain.exception;
 
-public class EstadoNaoEncontradaException extends handleNaoEncontradaException {
+public class EstadoNaoEncontradaException extends handleEntidadeNaoEncontradaException {
     public EstadoNaoEncontradaException(String mensagem) {
         super(mensagem);
     }
