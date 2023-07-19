@@ -1,5 +1,6 @@
 package io.github.jackson.api.controller;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.jackson.domain.exception.*;
 import io.github.jackson.domain.model.Restaurante;
@@ -82,6 +83,8 @@ public class RestauranteController {
 
     private void merge(Map<String, Object> dadosOrigem, Restaurante restauranteDestino) {
         ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(DeserializationFeature.FAIL_ON_IGNORED_PROPERTIES, true);
+
         Restaurante restauranteOrigem = objectMapper.convertValue(dadosOrigem, Restaurante.class);
 
         System.out.println(restauranteOrigem);
