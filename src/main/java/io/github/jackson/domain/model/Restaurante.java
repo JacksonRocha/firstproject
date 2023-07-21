@@ -1,7 +1,6 @@
 package io.github.jackson.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.github.jackson.Groups;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
@@ -37,7 +36,7 @@ public class Restaurante {
     private BigDecimal taxaFrete;
 
     @Valid
-    @ConvertGroup(from = Default.class, to = Groups.CadastroRestaurante.class)
+    @ConvertGroup(from = Default.class, to = Groups.CozinhaId.class)
     @NotNull
     @ManyToOne
     @JoinColumn(name = "cozinha_id", nullable = false)
