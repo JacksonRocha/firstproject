@@ -3,6 +3,7 @@ package io.github.jackson.api.controller;
 import io.github.jackson.domain.model.Estado;
 import io.github.jackson.domain.repository.EstadoRepository;
 import io.github.jackson.domain.service.CadastroEstadoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,12 +33,12 @@ public class EstadoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Estado adicionar(@RequestBody Estado estado) {
+    public Estado adicionar(@RequestBody @Valid Estado estado) {
         return estadoRepository.save(estado);
     }
 
     @PutMapping("/{estadoId}")
-    public Estado atualizar(@PathVariable Long estadoId,
+    public Estado atualizar(@PathVariable Long estadoId, @Valid
                             @RequestBody Estado estado) {
             Estado estadoAtual = cadastroEstadoService.buscarOuFalar(estadoId);
 
