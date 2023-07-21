@@ -24,7 +24,6 @@ public class Restaurante {
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     private Long id;
 
     @NotBlank(groups = Groups.CadastroRestaurante.class)
