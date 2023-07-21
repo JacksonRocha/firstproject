@@ -3,6 +3,7 @@ package io.github.jackson.domain.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -28,6 +29,7 @@ public class Restaurante {
     @Column(nullable = false)
     private String nome;
 
+    @DecimalMin("0")
     @Column(name = "taxa_frete", nullable = false)
     private BigDecimal taxaFrete;
 
