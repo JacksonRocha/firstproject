@@ -20,8 +20,10 @@ public class Problem {
     private String userMessage;
     private LocalDateTime timestamp;
     private List<Field> fields;
+
     @Getter
     @Setter
+    @Builder
     public static class Field {
 
         private String name;
