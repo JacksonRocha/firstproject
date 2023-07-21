@@ -3,10 +3,7 @@ package io.github.jackson.domain.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PositiveOrZero;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
@@ -28,7 +25,8 @@ public class Restaurante {
     private Long id;
 
 //  @NotNull
-    @NotEmpty
+//  @NotEmpty
+    @NotBlank
     @Column(nullable = false)
     private String nome;
 
