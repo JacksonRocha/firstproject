@@ -2,6 +2,7 @@ package io.github.jackson.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.jackson.core.validation.Groups;
+import io.github.jackson.core.validation.TaxaFrete;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
@@ -32,7 +33,8 @@ public class Restaurante {
     private String nome;
 
     @NotNull
-    @PositiveOrZero
+    //@PositiveOrZero
+    @TaxaFrete
     @Column(name = "taxa_frete", nullable = false)
     private BigDecimal taxaFrete;
 
