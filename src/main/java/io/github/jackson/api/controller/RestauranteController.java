@@ -2,7 +2,6 @@ package io.github.jackson.api.controller;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.github.jackson.Groups;
 import io.github.jackson.domain.exception.*;
 import io.github.jackson.domain.model.Restaurante;
 import io.github.jackson.domain.repository.RestauranteRepository;
@@ -17,7 +16,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.server.ServletServerHttpRequest;
 import org.springframework.util.ReflectionUtils;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Field;
