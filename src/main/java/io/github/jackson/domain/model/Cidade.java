@@ -1,6 +1,6 @@
 package io.github.jackson.domain.model;
 
-import io.github.jackson.Groups;
+import io.github.jackson.core.validation.Groups;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
