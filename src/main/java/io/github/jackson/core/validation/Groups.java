@@ -1,4 +1,4 @@
-package io.github.jackson;
+package io.github.jackson.core.validation;
 
 public interface Groups {
 
