@@ -3,6 +3,7 @@ package io.github.jackson.domain.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.jackson.core.validation.Groups;
 import io.github.jackson.core.validation.TaxaFrete;
+import io.github.jackson.core.validation.ValorZeroIncluiDescricao;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.*;
@@ -18,6 +19,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@ValorZeroIncluiDescricao(valorField = "taxaFrete",
+descricaoField = "nome", descricaoObrigatorio = "Frete Grátis")
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
