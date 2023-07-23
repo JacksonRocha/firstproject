@@ -2,7 +2,6 @@ package io.github.jackson.domain.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.github.jackson.core.validation.Groups;
-import io.github.jackson.core.validation.Multiplo;
 import io.github.jackson.core.validation.TaxaFrete;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
@@ -35,7 +34,6 @@ public class Restaurante {
 
     @NotNull
     @PositiveOrZero
-    @Multiplo(numero = 5)
     @Column(name = "taxa_frete", nullable = false)
     private BigDecimal taxaFrete;
 
