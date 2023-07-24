@@ -1,5 +1,7 @@
 package io.github.jackson;
 
+import io.github.jackson.domain.exception.CozinhaNaoEncontradaException;
+import io.github.jackson.domain.exception.EntidadeEmUsoException;
 import io.github.jackson.domain.model.Cozinha;
 import io.github.jackson.domain.service.CadastroCozinhaService;
 import jakarta.validation.ConstraintViolationException;
@@ -40,5 +42,14 @@ class CadastroCozinhaIntegrationTests {
                     cadastroCozinhaService.salvar(novaCozinha);
                 });
                 assertThat(errorEsperado).isNotNull();
+    }
+
+    @Test
+    public void deveFalhar_QuandoExcluirCozinhaEmUso() {
+        EntidadeEmUsoException erroEsperado =
+                Assertions.assertThrows(EntidadeEmUsoException.class, () -> {
+                    cadastroCozinhaService.excluir(1L);
+                });
+       assertThat(erroEsperado).isNotNull();
     }
 }
