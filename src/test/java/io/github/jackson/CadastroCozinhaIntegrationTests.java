@@ -30,5 +30,15 @@ class CadastroCozinhaIntegrationTests {
         assertThat(novaCozinha.getId()).isNotNull();
     }
 
+    @Test
+    public void testarCadastrarCozinhaSemNome() {
+        Cozinha novaCozinha = new Cozinha();
+        novaCozinha.setNome(null);
 
+        ConstraintViolationException errorEsperado = Assertions.assertThrows
+                (ConstraintViolationException.class, () -> {
+                    cadastroCozinhaService.salvar(novaCozinha);
+                });
+                assertThat(errorEsperado).isNotNull();
+    }
 }
