@@ -52,4 +52,16 @@ class CadastroCozinhaIntegrationTests {
                 });
        assertThat(erroEsperado).isNotNull();
     }
+
+    @Test
+    public void deveFalhar_QuandoExcluirCozinhaInexistente() {
+
+        CozinhaNaoEncontradaException erroEsperado =
+                Assertions.assertThrows(CozinhaNaoEncontradaException.class, () -> {
+                    cadastroCozinhaService.excluir(100L);
+                });
+        assertThat(erroEsperado).isNotNull();
+
+    }
+
 }
