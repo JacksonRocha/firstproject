@@ -1,12 +1,26 @@
 package io.github.jackson;
 
+import io.restassured.http.ContentType;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.server.LocalServerPort;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static io.restassured.RestAssured.given;
 
-@SpringBootTest
-class CadastroCozinhaTesteApiIT {
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+public class CadastroCozinhaTesteApiIT {
 
-
-
+    @LocalServerPort
+    private int port;
+    @Test
+    public void deveRetornarStatus200_QuandoConsultarCozinhas() {
+        given()
+                .basePath("/cozinhas")
+                .port(port)
+                .accept(ContentType.JSON)
+            .when()
+                .get()
+            .then()
+                .statusCode(200);
+    }
 }
