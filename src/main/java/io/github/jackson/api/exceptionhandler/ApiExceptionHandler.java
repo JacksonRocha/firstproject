@@ -3,6 +3,7 @@ package io.github.jackson.api.exceptionhandler;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 import com.fasterxml.jackson.databind.exc.PropertyBindingException;
+import io.github.jackson.core.validation.ValidacaoException;
 import io.github.jackson.domain.exception.EntidadeEmUsoException;
 import io.github.jackson.domain.exception.EntidadeNaoEncontradaException;
 import io.github.jackson.domain.exception.NegocioException;
@@ -290,6 +291,13 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, problem, headers, status, request);
 
     }
+
+    @ExceptionHandler({ValidacaoException.class})
+    public ResponseEntity<Object> handleValidacaoException(ValidacaoException ex, WebRequest request) {
+        return handleExceptionInternal(ex, ex.getBindingResult(), new HttpHeaders(),
+                HttpStatus.BAD_REQUEST, request);
+    }
+
     private Problem.ProblemBuilder createProblemBuilder(HttpStatus status,
             ProblemType problemType, String detail) {
 
