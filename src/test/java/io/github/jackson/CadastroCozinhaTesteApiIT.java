@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.test.context.TestPropertySource;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -49,13 +50,13 @@ public class CadastroCozinhaTesteApiIT {
     }
 
     @Test
-    public void deveConter1Cozinhas_QuandoConsultarCozinhas() {
+    public void deveConter5Cozinhas_QuandoConsultarCozinhas() {
         given()
             .accept(ContentType.JSON)
         .when()
             .get()
         .then()
-            .body("", hasSize(1));
+            .body("", hasSize(5));
 
     }
 
@@ -71,25 +72,48 @@ public class CadastroCozinhaTesteApiIT {
             .statusCode(HttpStatus.CREATED.value());
     }
 
+    @Test
+    public void deveRetornarRespostaEStatusCorretos_QuandoConsultarCozinhaExistente() {
+        given()
+             .pathParams("cozinhaId", 2)
+             .accept(ContentType.JSON)
+        .when()
+             .get("/{cozinhaId}")
+        .then()
+             .statusCode(HttpStatus.OK.value())
+             .body("nome", equalTo("Americana"));
+    }
+
+    @Test
+    public void deveRetornarStatus404_QuandoConsultarCozinhaInexistente() {
+        given()
+                .pathParams("cozinhaId", 100)
+                .accept(ContentType.JSON)
+                .when()
+                .get("/{cozinhaId}")
+                .then()
+                .statusCode(HttpStatus.NOT_FOUND.value());
+    }
+
     private void prepararDados() {
         Cozinha cozinha1 = new Cozinha();
         cozinha1.setNome("Tailandesa");
         cozinhaRepository.save(cozinha1);
 
         Cozinha cozinha2 = new Cozinha();
-        cozinha1.setNome("Americana");
-        cozinhaRepository.save(cozinha1);
+        cozinha2.setNome("Americana");
+        cozinhaRepository.save(cozinha2);
 
         Cozinha cozinha3 = new Cozinha();
-        cozinha1.setNome("Indiana");
-        cozinhaRepository.save(cozinha1);
+        cozinha3.setNome("Indiana");
+        cozinhaRepository.save(cozinha3);
 
         Cozinha cozinha4 = new Cozinha();
-        cozinha1.setNome("Brasileira");
-        cozinhaRepository.save(cozinha1);
+        cozinha4.setNome("Brasileira");
+        cozinhaRepository.save(cozinha4);
 
         Cozinha cozinha5 = new Cozinha();
-        cozinha1.setNome("Chinesa");
-        cozinhaRepository.save(cozinha1);
+        cozinha5.setNome("Chinesa");
+        cozinhaRepository.save(cozinha5);
     }
 }
