@@ -22,16 +22,12 @@ public class CadastroCozinhaTesteApiIT {
     @LocalServerPort
     private int port;
 
-    @Autowired
-    private Flyway flyway;
-
     @BeforeEach
     public void setUp() {
         RestAssured.enableLoggingOfRequestAndResponseIfValidationFails();
         RestAssured.port = port;
         RestAssured.basePath = "/cozinhas";
 
-        flyway.migrate();
     }
     @Test
     public void deveRetornarStatus200_QuandoConsultarCozinhas() {
