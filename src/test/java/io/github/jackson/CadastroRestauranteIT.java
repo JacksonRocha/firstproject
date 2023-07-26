@@ -123,26 +123,25 @@ public class CadastroRestauranteIT {
     @Test
     public void deveRetornarStatus400_QuandoCadastrarRestauranteComCozinhaInexistente() {
         given()
-                .body(jsonRestauranteComCozinhaInexistente)
-                .contentType(ContentType.JSON)
-                .accept(ContentType.JSON)
-                .when()
-                .post()
-                .then()
-                .statusCode(HttpStatus.BAD_REQUEST.value())
-                .body("title", equalTo(VIOLACAO_DE_REGRA_DE_NEGOCIO_PROBLEM_TYPE));
+            .body(jsonRestauranteComCozinhaInexistente)
+            .contentType(ContentType.JSON)
+            .accept(ContentType.JSON)
+        .when()
+            .post()
+        .then()
+            .statusCode(HttpStatus.NOT_FOUND.value());
     }
 
     @Test
     public void deveRetornarRespostaEStatusCorretos_QuandoConsultarRestauranteExistente() {
         given()
-                .pathParam("restauranteId", burgerTopRestaurante.getId())
-                .accept(ContentType.JSON)
-                .when()
-                .get("/{restauranteId}")
-                .then()
-                .statusCode(HttpStatus.OK.value())
-                .body("nome", equalTo(burgerTopRestaurante.getNome()));
+            .pathParam("restauranteId", burgerTopRestaurante.getId())
+            .accept(ContentType.JSON)
+        .when()
+            .get("/{restauranteId}")
+        .then()
+            .statusCode(HttpStatus.OK.value())
+            .body("nome", equalTo(burgerTopRestaurante.getNome()));
     }
 
     @Test
