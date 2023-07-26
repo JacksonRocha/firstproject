@@ -46,7 +46,7 @@ public class CadastroCozinhaTesteApiIT {
         databaseCleaner.clearTables();
         prepararDados();
         jsonCorretoCozinhaChinesa = ResourceUtils.getContentFromResource(
-                "io/github/jackson/json/correto/cozinha-chinesa.json");
+                "json/correto/cozinha-chinesa.json");
 
     }
     @Test
