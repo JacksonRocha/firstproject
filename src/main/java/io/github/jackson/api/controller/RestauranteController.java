@@ -2,6 +2,7 @@ package io.github.jackson.api.controller;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.jackson.api.model.RestauranteModel;
 import io.github.jackson.domain.exception.*;
 import io.github.jackson.domain.model.Restaurante;
 import io.github.jackson.domain.repository.RestauranteRepository;
@@ -45,8 +46,13 @@ public class RestauranteController {
 
     @GetMapping("/{restauranteId}")
     public Restaurante buscar(@PathVariable Long restauranteId) {
-       return cadastroRestauranteService.buscarOuFalhar(restauranteId);
+       Restaurante restaurante = cadastroRestauranteService.buscarOuFalhar(restauranteId);
+
+        RestauranteModel restauranteModel = null;
+
+                return restaurante;
     }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Restaurante adicionar(@RequestBody @Valid Restaurante restaurante) {
