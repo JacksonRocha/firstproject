@@ -48,6 +48,8 @@ public class RestauranteController {
     public Restaurante buscar(@PathVariable Long restauranteId) {
        Restaurante restaurante = cadastroRestauranteService.buscarOuFalhar(restauranteId);
 
+       RestauranteModel restauranteModel = null;
+
                 return restaurante;
     }
 
