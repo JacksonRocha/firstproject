@@ -2,6 +2,7 @@ package io.github.jackson.api.controller;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.jackson.api.model.CozinhaModel;
 import io.github.jackson.api.model.RestauranteModel;
 import io.github.jackson.domain.exception.*;
 import io.github.jackson.domain.model.Restaurante;
@@ -48,6 +49,15 @@ public class RestauranteController {
     public Restaurante buscar(@PathVariable Long restauranteId) {
        Restaurante restaurante = cadastroRestauranteService.buscarOuFalhar(restauranteId);
 
+        CozinhaModel cozinhaModel = new CozinhaModel();
+        cozinhaModel.setId(restaurante.getCozinha().getId());
+        cozinhaModel.setNome(restaurante.getNome());
+
+       RestauranteModel restauranteModel = new RestauranteModel();
+       restauranteModel.setId(restaurante.getId());
+       restauranteModel.setNome(restaurante.getNome());
+       restauranteModel.setTaxaFrete(restaurante.getTaxaFrete());
+       restauranteModel.setCozinha(cozinhaModel);
                 return restaurante;
     }
 
