@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/restaurantes", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -41,8 +42,8 @@ public class RestauranteController {
     private SmartValidator validator;
 
     @GetMapping
-    private List<Restaurante> listar() {
-        return restauranteRepository.findAll();
+    private List<RestauranteModel> listar() {
+        return toCollectionModel(restauranteRepository.findAll());
     }
 
     @GetMapping("/{restauranteId}")
@@ -135,6 +136,7 @@ public class RestauranteController {
             Throwable rootCause = ExceptionUtils.getRootCause(e);
             throw new HttpMessageNotReadableException(e.getMessage(), rootCause, serverHttpRequest);
         }
+
     }
 
     private static RestauranteModel toModel(Restaurante restaurante) {
@@ -149,4 +151,10 @@ public class RestauranteController {
         restauranteModel.setCozinha(cozinhaModel);
         return restauranteModel;
     }
-}
+
+    private List<RestauranteModel> toCollectionModel(List<Restaurante> restaurantes){
+        return restaurantes.stream()
+                .map(restaurante -> toModel(restaurante))
+                .collect(Collectors.toList());
+    }
+ }
