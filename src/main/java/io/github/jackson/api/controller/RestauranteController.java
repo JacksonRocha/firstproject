@@ -57,9 +57,10 @@ public class RestauranteController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Restaurante adicionar(@RequestBody @Valid Restaurante restaurante) {
+    public RestauranteModel adicionar(@RequestBody @Valid Restaurante restaurante) {
+
         try {
-            return cadastroRestauranteService.salvar(restaurante);
+            return toModel(cadastroRestauranteService.salvar(restaurante));
         } catch (RestauranteNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
         }
@@ -67,7 +68,7 @@ public class RestauranteController {
     }
 
     @PutMapping("/{restauranteId}")
-    public Restaurante atualizar(@PathVariable Long restauranteId,
+    public RestauranteModel atualizar(@PathVariable Long restauranteId,
                                  @RequestBody Restaurante restaurante) {
         Restaurante restauranteAtual = cadastroRestauranteService.buscarOuFalhar(restauranteId);
 
@@ -75,7 +76,7 @@ public class RestauranteController {
                    "id", "formasPagamento", "endereco", "dataCadastro", "produtos");
 
            try {
-               return cadastroRestauranteService.salvar(restauranteAtual);
+               return toModel(cadastroRestauranteService.salvar(restauranteAtual));
            } catch (CozinhaNaoEncontradaException e) {
                throw new NegocioException(e.getMessage());
            }
@@ -88,8 +89,8 @@ public class RestauranteController {
     }
 
     @PatchMapping("/{restauranteId}")
-    public Restaurante atualizarParcial(@PathVariable Long restauranteId,
-                                        @RequestBody Map<String, Object> campos, HttpServletRequest request) {
+    public RestauranteModel atualizarParcial(@PathVariable Long restauranteId,
+                                             @RequestBody Map<String, Object> campos, HttpServletRequest request) {
         Restaurante restauranteAtual = cadastroRestauranteService.buscarOuFalhar(restauranteId);
 
         merge(campos, restauranteAtual, request);
