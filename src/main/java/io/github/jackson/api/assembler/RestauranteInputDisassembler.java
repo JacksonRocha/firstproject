@@ -1,6 +1,7 @@
 package io.github.jackson.api.assembler;
 
 import io.github.jackson.api.model.mixin.input.RestauranteInput;
+import io.github.jackson.domain.model.Cozinha;
 import io.github.jackson.domain.model.Restaurante;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,5 +15,10 @@ public class RestauranteInputDisassembler {
 
     public Restaurante toDomainObject(RestauranteInput restauranteInput) {
         return modelMapper.map(restauranteInput, Restaurante.class);
+    }
+
+    public void copyToDomainObject(RestauranteInput restauranteInput, Restaurante restaurante) {
+        restaurante.setCozinha(new Cozinha());
+        modelMapper.map(restauranteInput, restaurante);
     }
 }
