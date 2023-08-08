@@ -2,6 +2,7 @@ package io.github.jackson.api.controller;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.jackson.api.assembler.RestauranteModelAssembler;
 import io.github.jackson.api.model.CozinhaModel;
 import io.github.jackson.api.model.RestauranteModel;
 import io.github.jackson.api.model.mixin.input.RestauranteInput;
@@ -43,16 +44,19 @@ public class RestauranteController {
     @Autowired
     private SmartValidator validator;
 
+    @Autowired
+    private RestauranteModelAssembler restauranteModelAssembler;
+
     @GetMapping
     private List<RestauranteModel> listar() {
-        return toCollectionModel(restauranteRepository.findAll());
+        return restauranteModelAssembler.toCollectionModel(restauranteRepository.findAll());
     }
 
     @GetMapping("/{restauranteId}")
     public RestauranteModel buscar(@PathVariable Long restauranteId) {
        Restaurante restaurante = cadastroRestauranteService.buscarOuFalhar(restauranteId);
 
-        return toModel(restaurante);
+        return RestauranteModelAssembler.toModel(restaurante);
     }
 
 
@@ -64,7 +68,7 @@ public class RestauranteController {
         try {
             Restaurante restaurante = toDomainObject(restauranteInput);
 
-            return toModel(cadastroRestauranteService.salvar(restaurante));
+            return RestauranteModelAssembler.toModel(cadastroRestauranteService.salvar(restaurante));
         } catch (RestauranteNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
         }
@@ -82,7 +86,7 @@ public class RestauranteController {
            BeanUtils.copyProperties(restaurante, restauranteAtual,
                    "id", "formasPagamento", "endereco", "dataCadastro", "produtos");
 
-               return toModel(cadastroRestauranteService.salvar(restauranteAtual));
+               return RestauranteModelAssembler.toModel(cadastroRestauranteService.salvar(restauranteAtual));
            } catch (CozinhaNaoEncontradaException e) {
                throw new NegocioException(e.getMessage());
            }
@@ -144,25 +148,6 @@ public class RestauranteController {
             throw new HttpMessageNotReadableException(e.getMessage(), rootCause, serverHttpRequest);
         }
 
-    }
-
-    private static RestauranteModel toModel(Restaurante restaurante) {
-        CozinhaModel cozinhaModel = new CozinhaModel();
-        cozinhaModel.setId(restaurante.getCozinha().getId());
-        cozinhaModel.setNome(restaurante.getNome());
-
-        RestauranteModel restauranteModel = new RestauranteModel();
-        restauranteModel.setId(restaurante.getId());
-        restauranteModel.setNome(restaurante.getNome());
-        restauranteModel.setTaxaFrete(restaurante.getTaxaFrete());
-        restauranteModel.setCozinha(cozinhaModel);
-        return restauranteModel;
-    }
-
-    private List<RestauranteModel> toCollectionModel(List<Restaurante> restaurantes){
-        return restaurantes.stream()
-                .map(restaurante -> toModel(restaurante))
-                .collect(Collectors.toList());
     }
 
     private Restaurante toDomainObject(RestauranteInput restauranteInput) {
