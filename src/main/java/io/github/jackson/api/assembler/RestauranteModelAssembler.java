@@ -3,6 +3,8 @@ package io.github.jackson.api.assembler;
 import io.github.jackson.api.model.CozinhaModel;
 import io.github.jackson.api.model.RestauranteModel;
 import io.github.jackson.domain.model.Restaurante;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -10,6 +12,9 @@ import java.util.stream.Collectors;
 
 @Component
 public class RestauranteModelAssembler {
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     public static RestauranteModel toModel(Restaurante restaurante) {
         CozinhaModel cozinhaModel = new CozinhaModel();
