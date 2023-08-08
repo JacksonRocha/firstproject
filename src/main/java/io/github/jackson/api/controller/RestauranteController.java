@@ -60,10 +60,8 @@ public class RestauranteController {
     public RestauranteModel buscar(@PathVariable Long restauranteId) {
        Restaurante restaurante = cadastroRestauranteService.buscarOuFalhar(restauranteId);
 
-        return RestauranteModelAssembler.toModel(restaurante);
+        return restauranteModelAssembler.toModel(restaurante);
     }
-
-
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -72,7 +70,7 @@ public class RestauranteController {
         try {
             Restaurante restaurante = restauranteInputDisassembler.toDomainObject(restauranteInput);
 
-            return RestauranteModelAssembler.toModel(cadastroRestauranteService.salvar(restaurante));
+            return restauranteModelAssembler.toModel(cadastroRestauranteService.salvar(restaurante));
         } catch (RestauranteNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
         }
@@ -90,7 +88,7 @@ public class RestauranteController {
            BeanUtils.copyProperties(restaurante, restauranteAtual,
                    "id", "formasPagamento", "endereco", "dataCadastro", "produtos");
 
-               return RestauranteModelAssembler.toModel(cadastroRestauranteService.salvar(restauranteAtual));
+               return restauranteModelAssembler.toModel(cadastroRestauranteService.salvar(restauranteAtual));
            } catch (CozinhaNaoEncontradaException e) {
                throw new NegocioException(e.getMessage());
            }
