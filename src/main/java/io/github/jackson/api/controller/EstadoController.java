@@ -1,5 +1,9 @@
 package io.github.jackson.api.controller;
 
+import io.github.jackson.api.assembler.EstadoInputDisassembler;
+import io.github.jackson.api.assembler.EstadoModelAssembler;
+import io.github.jackson.api.model.EstadoModel;
+import io.github.jackson.api.model.mixin.input.EstadoInput;
 import io.github.jackson.domain.model.Estado;
 import io.github.jackson.domain.repository.EstadoRepository;
 import io.github.jackson.domain.service.CadastroEstadoService;
@@ -21,30 +25,46 @@ public class EstadoController {
     @Autowired
     private CadastroEstadoService cadastroEstadoService;
 
+    @Autowired
+    private EstadoModelAssembler estadoModelAssembler;
+
+    @Autowired
+    private EstadoInputDisassembler estadoInputDisassembler;
+
     @GetMapping
-    public List<Estado> listar() {
-        return estadoRepository.findAll();
+    public List<EstadoModel> listar() {
+        List<Estado> todosEstados = estadoRepository.findAll();
+
+        return estadoModelAssembler.toCollectionModel(todosEstados);
     }
 
     @GetMapping("/{estadoId}")
-    public Estado buscar(@PathVariable Long estadoId) {
-       return cadastroEstadoService.buscarOuFalar(estadoId);
+    public EstadoModel buscar(@PathVariable Long estadoId) {
+        Estado estado = cadastroEstadoService.buscarOuFalar(estadoId);
+
+       return estadoModelAssembler.toModel(estado);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Estado adicionar(@RequestBody @Valid Estado estado) {
-        return estadoRepository.save(estado);
+    public EstadoModel adicionar(@RequestBody @Valid EstadoInput estadoInput) {
+        Estado estado = estadoInputDisassembler.toDomainObject(estadoInput);
+
+        estado = cadastroEstadoService.salvar(estado);
+
+        return estadoModelAssembler.toModel(estado);
     }
 
     @PutMapping("/{estadoId}")
-    public Estado atualizar(@PathVariable Long estadoId, @Valid
-                            @RequestBody Estado estado) {
+    public EstadoModel atualizar(@PathVariable Long estadoId,
+                            @RequestBody @Valid EstadoInput estadoInput) {
             Estado estadoAtual = cadastroEstadoService.buscarOuFalar(estadoId);
 
-            BeanUtils.copyProperties(estado, estadoAtual,"id");
+            estadoInputDisassembler.copyToDomainObject(estadoInput, estadoAtual);
 
-            return  cadastroEstadoService.salvar(estadoAtual);
+            estadoAtual = cadastroEstadoService.salvar(estadoAtual);
+
+            return  estadoModelAssembler.toModel(estadoAtual);
     }
 
     @DeleteMapping("/{estadoId}")
