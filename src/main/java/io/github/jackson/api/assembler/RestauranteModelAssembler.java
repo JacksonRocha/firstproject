@@ -1,6 +1,5 @@
 package io.github.jackson.api.assembler;
 
-import io.github.jackson.api.model.CozinhaModel;
 import io.github.jackson.api.model.RestauranteModel;
 import io.github.jackson.domain.model.Restaurante;
 import org.modelmapper.ModelMapper;
@@ -16,17 +15,8 @@ public class RestauranteModelAssembler {
     @Autowired
     private ModelMapper modelMapper;
 
-    public static RestauranteModel toModel(Restaurante restaurante) {
-        CozinhaModel cozinhaModel = new CozinhaModel();
-        cozinhaModel.setId(restaurante.getCozinha().getId());
-        cozinhaModel.setNome(restaurante.getNome());
-
-        RestauranteModel restauranteModel = new RestauranteModel();
-        restauranteModel.setId(restaurante.getId());
-        restauranteModel.setNome(restaurante.getNome());
-        restauranteModel.setTaxaFrete(restaurante.getTaxaFrete());
-        restauranteModel.setCozinha(cozinhaModel);
-        return restauranteModel;
+    public RestauranteModel toModel(Restaurante restaurante) {
+      return modelMapper.map(restaurante, RestauranteModel.class);
     }
 
     public List<RestauranteModel> toCollectionModel(List<Restaurante> restaurantes){
