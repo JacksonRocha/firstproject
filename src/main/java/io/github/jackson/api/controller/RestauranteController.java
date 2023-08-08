@@ -2,6 +2,7 @@ package io.github.jackson.api.controller;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.github.jackson.api.assembler.RestauranteInputDisassembler;
 import io.github.jackson.api.assembler.RestauranteModelAssembler;
 import io.github.jackson.api.model.CozinhaModel;
 import io.github.jackson.api.model.RestauranteModel;
@@ -47,6 +48,9 @@ public class RestauranteController {
     @Autowired
     private RestauranteModelAssembler restauranteModelAssembler;
 
+    @Autowired
+    private RestauranteInputDisassembler restauranteInputDisassembler;
+
     @GetMapping
     private List<RestauranteModel> listar() {
         return restauranteModelAssembler.toCollectionModel(restauranteRepository.findAll());
@@ -66,7 +70,7 @@ public class RestauranteController {
     public RestauranteModel adicionar(@RequestBody @Valid RestauranteInput restauranteInput) {
 
         try {
-            Restaurante restaurante = toDomainObject(restauranteInput);
+            Restaurante restaurante = restauranteInputDisassembler.toDomainObject(restauranteInput);
 
             return RestauranteModelAssembler.toModel(cadastroRestauranteService.salvar(restaurante));
         } catch (RestauranteNaoEncontradaException e) {
@@ -79,7 +83,7 @@ public class RestauranteController {
     public RestauranteModel atualizar(@PathVariable Long restauranteId,
                                  @RequestBody @Valid RestauranteInput restauranteInput) {
         try {
-        Restaurante restaurante = toDomainObject(restauranteInput);
+        Restaurante restaurante = restauranteInputDisassembler.toDomainObject(restauranteInput);
 
         Restaurante restauranteAtual = cadastroRestauranteService.buscarOuFalhar(restauranteId);
 
@@ -148,18 +152,5 @@ public class RestauranteController {
             throw new HttpMessageNotReadableException(e.getMessage(), rootCause, serverHttpRequest);
         }
 
-    }
-
-    private Restaurante toDomainObject(RestauranteInput restauranteInput) {
-        Restaurante restaurante = new Restaurante();
-        restaurante.setNome(restauranteInput.getNome());
-        restaurante.setTaxaFrete(restauranteInput.getTaxaFrete());
-
-        Cozinha cozinha = new Cozinha();
-        cozinha.setId(restauranteInput.getCozinha().getId());
-
-        restaurante.setCozinha(cozinha);
-
-        return restaurante;
     }
  }
