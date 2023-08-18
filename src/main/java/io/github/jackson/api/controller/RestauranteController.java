@@ -97,27 +97,27 @@ public class RestauranteController {
             cadastroRestauranteService.excluir(restauranteId);
     }
 
-    @PatchMapping("/{restauranteId}")
-    public RestauranteModel atualizarParcial(@PathVariable Long restauranteId,
-                                             @RequestBody Map<String, Object> campos, HttpServletRequest request) {
-        Restaurante restauranteAtual = cadastroRestauranteService.buscarOuFalhar(restauranteId);
-
-        merge(campos, restauranteAtual, request);
-        validate(restauranteAtual, "restaurante");
-
-        return atualizar(restauranteId, null);
-    }
-
-    private void validate(Restaurante restaurante, String objectName) {
-        BeanPropertyBindingResult bindingResult = new BeanPropertyBindingResult(restaurante, objectName);
-
-        validator.validate(restaurante, bindingResult);
-
-        if (bindingResult.hasErrors()) {
-            throw new ValidationException(String.valueOf(bindingResult));
-        }
-
-    }
+//    @PatchMapping("/{restauranteId}")
+//    public RestauranteModel atualizarParcial(@PathVariable Long restauranteId,
+//                                             @RequestBody Map<String, Object> campos, HttpServletRequest request) {
+//        Restaurante restauranteAtual = cadastroRestauranteService.buscarOuFalhar(restauranteId);
+//
+//        merge(campos, restauranteAtual, request);
+//        validate(restauranteAtual, "restaurante");
+//
+//        return atualizar(restauranteId, null);
+//    }
+//
+//    private void validate(Restaurante restaurante, String objectName) {
+//        BeanPropertyBindingResult bindingResult = new BeanPropertyBindingResult(restaurante, objectName);
+//
+//        validator.validate(restaurante, bindingResult);
+//
+//        if (bindingResult.hasErrors()) {
+//            throw new ValidationException(String.valueOf(bindingResult));
+//        }
+//
+//    }
 
     private void merge(Map<String, Object> dadosOrigem, Restaurante restauranteDestino,
                        HttpServletRequest request) {
