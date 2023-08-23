@@ -1,7 +1,6 @@
 package io.github.jackson.api.assembler;
 
-import io.github.jackson.api.model.CozinhaModel;
-import io.github.jackson.domain.model.Cozinha;
+import io.github.jackson.api.model.FormaPagamentoModel;
 import io.github.jackson.domain.model.FormaPagamento;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
