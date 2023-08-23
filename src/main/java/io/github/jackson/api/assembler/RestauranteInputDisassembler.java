@@ -1,6 +1,7 @@
 package io.github.jackson.api.assembler;
 
 import io.github.jackson.api.model.mixin.input.RestauranteInput;
+import io.github.jackson.domain.model.Cidade;
 import io.github.jackson.domain.model.Cozinha;
 import io.github.jackson.domain.model.Restaurante;
 import org.modelmapper.ModelMapper;
@@ -19,6 +20,11 @@ public class RestauranteInputDisassembler {
 
     public void copyToDomainObject(RestauranteInput restauranteInput, Restaurante restaurante) {
         restaurante.setCozinha(new Cozinha());
+
+        if (restaurante.getEndereco() != null) {
+            restaurante.getEndereco().setCidade(new Cidade());
+        }
+
         modelMapper.map(restauranteInput, restaurante);
     }
 }
