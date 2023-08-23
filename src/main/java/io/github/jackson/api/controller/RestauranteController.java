@@ -71,7 +71,7 @@ public class RestauranteController {
             Restaurante restaurante = restauranteInputDisassembler.toDomainObject(restauranteInput);
 
             return restauranteModelAssembler.toModel(cadastroRestauranteService.salvar(restaurante));
-        } catch (RestauranteNaoEncontradaException e) {
+        } catch (RestauranteNaoEncontradaException | CidadeNaoEncontradaException e) {
             throw new NegocioException(e.getMessage());
         }
 
@@ -86,7 +86,7 @@ public class RestauranteController {
         restauranteInputDisassembler.copyToDomainObject(restauranteInput, restauranteAtual);
 
                return restauranteModelAssembler.toModel(cadastroRestauranteService.salvar(restauranteAtual));
-           } catch (CozinhaNaoEncontradaException e) {
+           } catch (CozinhaNaoEncontradaException | CidadeNaoEncontradaException e) {
                throw new NegocioException(e.getMessage());
            }
     }
