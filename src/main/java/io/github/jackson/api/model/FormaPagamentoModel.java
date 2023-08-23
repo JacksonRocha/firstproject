@@ -1,4 +1,4 @@
-package io.github.jackson.api.assembler;
+package io.github.jackson.api.model;
 
 import lombok.Getter;
 import lombok.Setter;
