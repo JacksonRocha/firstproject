@@ -1,4 +1,4 @@
-package io.github.jackson.api.assembler;
+package io.github.jackson.api.model.mixin.input;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
