@@ -2,7 +2,7 @@ package io.github.jackson.api.controller;
 
 import io.github.jackson.api.assembler.FormaPagamentoInput;
 import io.github.jackson.api.assembler.FormaPagamentoInputDisassembler;
-import io.github.jackson.api.assembler.FormaPagamentoModel;
+import io.github.jackson.api.model.FormaPagamentoModel;
 import io.github.jackson.api.assembler.FormaPagamentoModelAssembler;
 import io.github.jackson.domain.model.FormaPagamento;
 import io.github.jackson.domain.repository.FormaPagamentoRepository;
