@@ -1,6 +1,6 @@
 package io.github.jackson.api.controller;
 
-import io.github.jackson.api.assembler.FormaPagamentoInput;
+import io.github.jackson.api.model.mixin.input.FormaPagamentoInput;
 import io.github.jackson.api.assembler.FormaPagamentoInputDisassembler;
 import io.github.jackson.api.model.FormaPagamentoModel;
 import io.github.jackson.api.assembler.FormaPagamentoModelAssembler;
