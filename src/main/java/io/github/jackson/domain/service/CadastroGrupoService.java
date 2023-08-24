@@ -37,5 +37,8 @@ public class CadastroGrupoService {
         }
     }
 
-
+    public Grupo buscarOuFalhar(Long grupoId) {
+        return grupoRepository.findById(grupoId)
+                .orElseThrow(() -> new GrupoNaoEncontradaException(grupoId));
+    }
 }
