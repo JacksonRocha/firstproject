@@ -1,6 +1,6 @@
 package io.github.jackson.domain.service;
 
-import io.github.jackson.api.exceptionhandler.FormaPagamentoNaoEncontradaException;
+import io.github.jackson.domain.exception.FormaPagamentoNaoEncontradaException;
 import io.github.jackson.domain.exception.EntidadeEmUsoException;
 import io.github.jackson.domain.model.FormaPagamento;
 import io.github.jackson.domain.repository.FormaPagamentoRepository;
