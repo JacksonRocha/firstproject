@@ -1,4 +1,4 @@
-package io.github.jackson.api.exceptionhandler;
+package io.github.jackson.domain.exception;
 
 import io.github.jackson.domain.exception.EntidadeNaoEncontradaException;
 
