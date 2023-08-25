@@ -3,14 +3,14 @@ package io.github.jackson.api.controller;
 import io.github.jackson.api.assembler.GrupoInputDisassembler;
 import io.github.jackson.api.assembler.GrupoModelAssembler;
 import io.github.jackson.api.model.GrupoModel;
+import io.github.jackson.api.model.mixin.input.GrupoInput;
 import io.github.jackson.domain.model.Grupo;
 import io.github.jackson.domain.repository.GrupoRepository;
 import io.github.jackson.domain.service.CadastroGrupoService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -40,6 +40,16 @@ public class GrupoController {
     @GetMapping("/{grupoId}")
     public GrupoModel buscar(@PathVariable Long grupoId) {
         Grupo grupo = cadastroGrupoService.buscarOuFalhar(grupoId);
+
+        return grupoModelAssembler.toModel(grupo);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public GrupoModel adicionar(@RequestBody @Valid GrupoInput grupoInput) {
+        Grupo grupo = grupoInputDisassembler.toDomainObject(grupoInput);
+
+        grupo = cadastroGrupoService.salvar(grupo);
 
         return grupoModelAssembler.toModel(grupo);
     }
