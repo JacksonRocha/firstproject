@@ -54,6 +54,18 @@ public class GrupoController {
         return grupoModelAssembler.toModel(grupo);
     }
 
+    @PutMapping("/{grupoId}")
+    public GrupoModel atualizar(@PathVariable Long grupoId,
+           @RequestBody @Valid GrupoInput grupoInput) {
+        Grupo grupoAtual = cadastroGrupoService.buscarOuFalhar(grupoId);
+
+        grupoInputDisassembler.copyToDomainObject(grupoInput, grupoAtual);
+
+        grupoAtual = cadastroGrupoService.salvar(grupoAtual);
+
+        return grupoModelAssembler.toModel(grupoAtual);
+    }
+
 
 
 }
