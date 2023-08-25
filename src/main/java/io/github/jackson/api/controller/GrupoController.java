@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/grupos")
 public class GrupoController {
@@ -27,6 +29,13 @@ public class GrupoController {
 
     @Autowired
     private GrupoInputDisassembler grupoInputDisassembler;
+
+    @GetMapping
+    public List<GrupoModel> listar() {
+        List<Grupo> todosGrupos = grupoRepository.findAll();
+
+        return grupoModelAssembler.toCollectionModel(todosGrupos);
+    }
 
     @GetMapping("/{grupoId}")
     public GrupoModel buscar(@PathVariable Long grupoId) {
