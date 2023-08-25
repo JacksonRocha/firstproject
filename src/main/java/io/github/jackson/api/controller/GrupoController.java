@@ -66,6 +66,9 @@ public class GrupoController {
         return grupoModelAssembler.toModel(grupoAtual);
     }
 
-
-
+    @DeleteMapping("/{grupoId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void remover(@PathVariable Long grupoId) {
+        cadastroGrupoService.excluir(grupoId);
+    }
 }
