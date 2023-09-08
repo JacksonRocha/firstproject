@@ -4,9 +4,12 @@ import io.github.jackson.domain.exception.GrupoNaoEncontradaException;
 import io.github.jackson.domain.exception.NegocioException;
 import io.github.jackson.domain.model.Usuario;
 import io.github.jackson.domain.repository.UsuarioRepository;
+import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 public class CadastroUsuarioService {
@@ -16,8 +19,20 @@ public class CadastroUsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private EntityManager entityManager;
+
     @Transactional
     public Usuario salvar(Usuario usuario) {
+        entityManager.detach(usuario);
+
+        Optional<Usuario> usuarioExistente = usuarioRepository.findByEmail(usuario.getEmail());
+
+        if (usuarioExistente.isPresent() && !usuarioExistente.get().equals(usuario)) {
+            throw new NegocioException(String.format("Já existe um usuário cadastrado com o e-mail %s", usuario.getEmail()));
+        }
+
+
         return usuarioRepository.save(usuario);
     }
 
