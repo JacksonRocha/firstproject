@@ -75,7 +75,7 @@ public class UsuarioController {
         return usuarioModelAssembler.toModel(usuarilAtual);
     }
 
-    @DeleteMapping("/{usuarioId}/senha")
+    @PutMapping("/{usuarioId}/senha")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void alterarSenha(@PathVariable Long usuarioId, @RequestBody @Valid
                              SenhaInput senhaInput) {
