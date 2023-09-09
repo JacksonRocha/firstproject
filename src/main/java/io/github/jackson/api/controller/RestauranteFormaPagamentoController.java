@@ -37,4 +37,10 @@ public class RestauranteFormaPagamentoController {
     public void desassociar(@PathVariable Long restauranteId, @PathVariable Long formaPagamentoId) {
         cadastroRestauranteService.desassociarFormaPagamento(restauranteId, formaPagamentoId);
     }
+
+    @PutMapping("/{formaPagamentoId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void associar(@PathVariable Long restauranteId, @PathVariable Long formaPagamentoId) {
+        cadastroRestauranteService.associarFormaPagamento(restauranteId, formaPagamentoId);
+    }
  }
