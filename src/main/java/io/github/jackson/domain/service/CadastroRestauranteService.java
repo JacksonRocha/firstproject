@@ -4,6 +4,7 @@ import io.github.jackson.domain.exception.EntidadeEmUsoException;
 import io.github.jackson.domain.exception.RestauranteNaoEncontradaException;
 import io.github.jackson.domain.model.Cidade;
 import io.github.jackson.domain.model.Cozinha;
+import io.github.jackson.domain.model.FormaPagamento;
 import io.github.jackson.domain.model.Restaurante;
 import io.github.jackson.domain.repository.RestauranteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class CadastroRestauranteService {
 
     @Autowired
     private CadastroCidadeService cadastroCidadeService;
+
+    @Autowired
+    private CadastroFormaPagamentoService cadastroFormaPagamentoService;
 
     @Transactional
     public Restaurante salvar(Restaurante restaurante) {
@@ -66,6 +70,14 @@ public class CadastroRestauranteService {
             throw new EntidadeEmUsoException(
                     String.format(MSG_RESTAURANTE_EM_USO, restauranteId));
         }
+    }
+
+    @Transactional
+    public void removerFormaPagamento(Long restauranteId, Long formaPagamentoId) {
+        Restaurante restaurante = buscarOuFalhar(restauranteId);
+        FormaPagamento formaPagamento = cadastroFormaPagamentoService.buscarOuFalhar(formaPagamentoId);
+
+        restaurante.getFormasPagamento().add(formaPagamento);
     }
 
     public Restaurante buscarOuFalhar (Long restauranteId) {
