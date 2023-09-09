@@ -47,4 +47,10 @@ public class RestauranteFormaPagamentoController {
     @Autowired
     private FormaPagamentoInputDisassembler formaPagamentoInputDisassembler;
 
+    @GetMapping
+    private List<FormaPagamentoModel> listar(@PathVariable Long restauranteId) {
+        Restaurante restaurante = cadastroRestauranteService.buscarOuFalhar(restauranteId);
+
+        return formaPagamentoModelAssembler.toCollectionModel(restaurante.getFormasPagamento());
+    }
  }
