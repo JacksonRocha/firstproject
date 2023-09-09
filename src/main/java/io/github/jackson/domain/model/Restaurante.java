@@ -71,4 +71,8 @@ public class Restaurante {
     public void inativar() {
         setAtivo(false);
     }
+
+    public boolean adicionarFormaPagamento(FormaPagamento formaPagamento) {
+        return getFormasPagamento().add(formaPagamento);
+    }
 }
