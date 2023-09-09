@@ -67,4 +67,8 @@ public class Restaurante {
     public void removerFormaPagamento(FormaPagamento formaPagamento) {
         getFormasPagamento().remove(formaPagamento);
     }
+
+    public void adicionarFormaPagamento(FormaPagamento formaPagamento) {
+        getFormasPagamento().add(formaPagamento);
+    }
 }
