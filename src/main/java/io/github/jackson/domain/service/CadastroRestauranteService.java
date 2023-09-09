@@ -80,6 +80,14 @@ public class CadastroRestauranteService {
         restaurante.removerFormaPagamento(formaPagamento);
     }
 
+    @Transactional
+    public void associarFormaPagamento(Long restauranteId, Long formaPagamentoId) {
+        Restaurante restaurante = buscarOuFalhar(restauranteId);
+        FormaPagamento formaPagamento = cadastroFormaPagamentoService.buscarOuFalhar(formaPagamentoId);
+
+        restaurante.adicionarFormaPagamento(formaPagamento);
+    }
+
     public Restaurante buscarOuFalhar (Long restauranteId) {
         return restauranteRepository.findById(restauranteId)
                 .orElseThrow(() -> new RestauranteNaoEncontradaException(restauranteId));
