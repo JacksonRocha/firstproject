@@ -60,6 +60,20 @@ public class CadastroRestauranteService {
     }
 
     @Transactional
+    public void abrir(Long restauranteId) {
+        Restaurante restauranteAtual = buscarOuFalhar(restauranteId);
+
+        restauranteAtual.abrir();
+    }
+
+    @Transactional
+    public void fechar(Long restauranteId) {
+        Restaurante restauranteAtual = buscarOuFalhar(restauranteId);
+
+        restauranteAtual.fechar();
+    }
+
+    @Transactional
     public void excluir(Long restauranteId) {
         try {
             restauranteRepository.deleteById(restauranteId);
