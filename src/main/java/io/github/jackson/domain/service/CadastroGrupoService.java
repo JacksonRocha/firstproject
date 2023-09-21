@@ -3,6 +3,7 @@ package io.github.jackson.domain.service;
 import io.github.jackson.domain.exception.EntidadeEmUsoException;
 import io.github.jackson.domain.exception.GrupoNaoEncontradaException;
 import io.github.jackson.domain.model.Grupo;
+import io.github.jackson.domain.model.Permissao;
 import io.github.jackson.domain.repository.GrupoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -14,8 +15,12 @@ import org.springframework.transaction.annotation.Transactional;
 public class CadastroGrupoService {
 
     public static final String MSG_GRUPO_EM_USO = "Grupo de código %d não poder ser removido, pois está em uso";
+
     @Autowired
     private GrupoRepository grupoRepository;
+
+    @Autowired
+    private CadastroPermissaoService cadastroPermissaoService;
 
     @Transactional
     public Grupo salvar(Grupo grupo) {
@@ -40,5 +45,22 @@ public class CadastroGrupoService {
     public Grupo buscarOuFalhar(Long grupoId) {
         return grupoRepository.findById(grupoId)
                 .orElseThrow(() -> new GrupoNaoEncontradaException(grupoId));
+    }
+
+
+    @Transactional
+    public void desassociarPermissao(Long grupoId, Long permissaoId) {
+        Grupo grupo = buscarOuFalhar(grupoId);
+        Permissao permissao = cadastroPermissaoService.buscarOuFalhar(permissaoId);
+
+        grupo.removerPermissao(permissao);
+    }
+
+    @Transactional
+    public void associarPermissao(Long grupoId, Long permissaoId) {
+        Grupo grupo = buscarOuFalhar(grupoId);
+        Permissao permissao = cadastroPermissaoService.buscarOuFalhar(permissaoId);
+
+        grupo.adicionarPermissao(permissao);
     }
 }
