@@ -2,6 +2,7 @@ package io.github.jackson.domain.service;
 
 import io.github.jackson.domain.exception.GrupoNaoEncontradaException;
 import io.github.jackson.domain.exception.NegocioException;
+import io.github.jackson.domain.model.Grupo;
 import io.github.jackson.domain.model.Usuario;
 import io.github.jackson.domain.repository.CozinhaRepository;
 import io.github.jackson.domain.repository.RestauranteRepository;
@@ -20,6 +21,9 @@ public class CadastroUsuarioService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private CadastroGrupoService cadastroGrupoService;
 
     @Transactional
     public Usuario salvar(Usuario usuario) {
@@ -51,4 +55,21 @@ public class CadastroUsuarioService {
         return usuarioRepository.findById(usuarioId)
                 .orElseThrow(() -> new GrupoNaoEncontradaException(usuarioId));
     }
+
+    @Transactional
+    public void desassocirGrupo(Long usuarioId, Long grupoId) {
+        Usuario usuario = buscarOuFalhar(usuarioId);
+        Grupo grupo = cadastroGrupoService.buscarOuFalhar(grupoId);
+
+        usuario.removerGrupo(grupo);
+    }
+
+    @Transactional
+    public void associarGrupo(Long usuarioId, Long grupoId) {
+        Usuario usuario = buscarOuFalhar(usuarioId);
+        Grupo grupo = cadastroGrupoService.buscarOuFalhar(grupoId);
+
+        usuario.adicionarGrupo(grupo);
+    }
+
 }
