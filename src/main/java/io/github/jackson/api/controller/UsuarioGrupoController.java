@@ -38,7 +38,7 @@ public class UsuarioGrupoController {
         cadastroUsuarioService.desassocirGrupo(usuarioId, grupoId);
     }
 
-    @PutMapping("/{permissaoId}")
+    @PutMapping("/{grupoId}")
     public void associar (@PathVariable Long usuarioId, @PathVariable Long grupoId) {
         cadastroUsuarioService.associarGrupo(usuarioId, grupoId);
     }
