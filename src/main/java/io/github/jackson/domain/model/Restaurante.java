@@ -76,6 +76,7 @@ public class Restaurante {
 
     public boolean removerResponsavel(Usuario usuario) {
         return getResponsaveis().remove(usuario);
+
     }
 
     public boolean adicionarResponsavel(Usuario usuario) {
